@@ -1,0 +1,184 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15/08/2014, 09:37:08
+    Author     : rubensmarcon
+*/
+.ui-widget, .ui-corner-all {
+    font-size: 14px;
+}
+.cabecalho {
+    background-image: url(http://inscricaoead.ufgd.edu.br/sistema/img/logo.png);
+    background-repeat: round;
+}
+
+form.arrumar {
+    height: inherit;
+    margin: 0px;
+}
+form.arrumar > table {
+    margin: auto;
+}
+
+.barraBotoes {
+    width: 140px;
+    margin: 1px 5px;
+}
+
+.centraliza {
+    text-align: center;
+}
+div.layout-arruma-height > div {
+    position: initial !important;
+}
+div.layout-arruma-height div.ui-datatable-scrollable-body {
+    height: calc(100% - 27px);
+    overflow-y: scroll;
+    margin: 0px !important;
+}
+
+.ui-datatable.ui-widget.estiloTabela {
+    height: calc(100% - 30px);
+}
+.ui-datatable.ui-widget.estiloTabela table, .ui-datatable.ui-widget.estiloTabela table button {
+    font-size: 14px;
+}
+
+.estiloTabela td:nth-child(6n -5) {
+    text-align: center;
+    width: 20px;
+}
+.estiloTabela td:eq(6n -4) {
+    text-align: center;
+    width: 30px;
+}
+.estiloTabela td:eq(6n -1) {
+    text-align: center;
+    width: 120px;
+}
+.estiloTabela td:eq(6n) {
+    text-align: center;
+    width: 90px;
+}
+.estiloTabela thead th.colunaStatus{
+    width: 106px;
+    /*min-width: 49px;*/
+}
+.estiloTabela tbody td.colunaStatus{
+    text-align: center;
+    width: 120px;
+    height: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: none;
+    padding: 4px 3px;
+    /*position: absolute;*/
+}
+.estiloTabela input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    margin: 0px;
+}
+
+table.estiloSort > tbody > tr:first-child td {
+    width: 60px;
+    text-align: center;
+}
+table.estiloSortRadios td {
+    padding: 0px;
+    text-align: center;
+}
+table.estiloSortRadios td:nth-child(2n -1) {
+    width: 81px;
+}
+
+
+
+
+.ui-datatable .ui-datatable-odd, .ui-datatable .ui-datatable-even {
+    /*background-color: #F2F5F9;*/
+    background-color: #FFFFFF;
+}
+.ui-datatable-odd.pauleado {
+    background-image: url();
+    background-color: rgb(255,101,101);
+    /*background-color: rgba(255,0,0,0.4);*/
+}
+.ui-datatable-odd.aguardando {
+    background-image: url();
+    background-color: rgb(216,216,216);
+    /*background-color: rgba(150,150,150,0.4);*/
+}
+.ui-datatable-odd.ok0 {
+    background-image: url();
+    background-color: rgb(178,216,254);
+    /*background-color: rgba(85,128,255,0.4);*/
+}
+.ui-datatable-odd.ok1 {
+    background-image: url();
+    background-color: rgb(144,228,218);
+    /*background-color: rgba(0,210,185,0.4);*/
+}
+.ui-datatable-odd.ok2 {
+    background-image: url();
+    background-color: rgb(144,228,144);
+    /*background-color: rgba(0,210,0,0.4);*/
+}
+.ui-datatable-odd.ok3 {
+    background-image: url();
+    background-color: rgb(204,228,144);
+    /*background-color: rgba(150, 220, 0, 0.4);*/
+}
+.ui-datatable-odd.ok4 {
+    background-image: url();
+    background-color: rgb(246,230,144);
+    /*background-color: rgba(255, 215, 0, 0.4);*/
+}
+.ui-datatable-odd.ok5 {
+    background-image: url();
+    background-color: rgb(246,200,144);
+    /*background-color: rgba(255, 140, 0, 0.4);*/
+}
+.ui-datatable-even.pauleado {
+    background-image: url();
+    background-color: rgb(255,101,101);
+    /*background-color: rgba(255,0,0,0.3);*/
+}
+.ui-datatable-even.aguardando {
+    background-image: url();
+    background-color: rgb(216,216,216);
+    /*background-color: rgba(150,150,150,0.3);*/
+}
+.ui-datatable-even.ok0 {
+    background-image: url();
+    background-color: rgb(178,216,254);
+    /*background-color: rgba(0,128,255,0.3);*/
+}
+.ui-datatable-even.ok1 {
+    background-image: url();
+    background-color: rgb(144,228,218);
+    /*background-color: rgba(0,210,185,0.3);*/
+}
+.ui-datatable-even.ok2 {
+    background-image: url();
+    background-color: rgb(144,228,144);
+    /*background-color: rgba(0,210,0,0.3);*/
+}
+.ui-datatable-even.ok3 {
+    background-image: url();
+    background-color: rgb(204,228,144);
+    /*background-color: rgba(150, 220, 0, 0.3);*/
+}
+.ui-datatable-even.ok4 {
+    background-image: url();
+    background-color: rgb(246,230,144);
+    /*background-color: rgba(255, 215, 0, 0.3);*/
+}
+.ui-datatable-even.ok5 {
+    background-image: url();
+    background-color: rgb(246,200,144);
+    /*background-color: rgba(255, 140, 0, 0.3);*/
+}

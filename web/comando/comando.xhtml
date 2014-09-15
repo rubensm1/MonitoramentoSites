@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/template1.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="conteudo">
+        
+        <p:layout>
+            <p:layoutUnit position="center">
+                <h:form id="formConteudo">
+                    <pre id="conteudo"></pre>
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="south" size="65" resizable="true">
+                <h:form>
+                    <p:inputText id="comando" value="javascript:varr" style="width: 400px;" />
+                    <p:commandButton value="exec" onclick="conexao.send(varr)"/>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+
+    </ui:define>
+</ui:composition>

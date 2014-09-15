@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Monitoramento</title>
+            </f:facet>
+            <h:outputScript library="resources" name="js/LocalMaquina.js" />
+            <h:outputScript library="resources" name="js/Mensagem.js" />
+            <h:outputScript library="resources" name="js/MensagemGrowl.js" />
+            <h:outputScript library="resources" name="js/StatusConexao.js" />
+            <h:outputScript library="resources" name="js/TabelaStatusConexao.js" />
+            <ui:insert name="head" />
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100">
+
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="30">
+
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="250" header="Menu" collapsible="true" >
+                    <h:form id="formMenu">
+                        <p:menu style="width: inherit;">
+                            <p:menuitem value="Inicio" url="/" />
+                            <p:menuitem value="Locais das Máquinas" url="/local/ManipuladorLocal.xhtml" />
+                        </p:menu>
+                        <p:themeSwitcher style="width:165px" value="#{themeService.temaAtual}" valueChangeListener="#{themeService.sauvaTema}">
+                            <f:selectItem itemLabel="Escolha o Tema" itemValue="" />
+                            <f:selectItems value="#{themeService.themes}" />
+                        </p:themeSwitcher>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <ui:insert name="conteudo" />
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15/08/2014, 09:37:08
+    Author     : rubensmarcon
+*/
+.ui-widget, .ui-corner-all {
+    font-size: 14px;
+}
+
+form.arrumar {
+    height: inherit;
+    margin: 0px;
+}
+
+.barraBotoes {
+    width: 140px;
+    margin: 1px 5px;
+}
+
+.centraliza {
+    text-align: center;
+}
+div.layout-arruma-height > div {
+    position: initial !important;
+}
+div.layout-arruma-height div.ui-datatable-scrollable-body {
+    height: calc(100% - 27px);
+    overflow-y: scroll;
+    margin: 0px !important;
+}
+
+.ui-datatable.ui-widget.estiloTabela {
+    height: calc(100% - 0.1em);
+}
+.ui-datatable.ui-widget.estiloTabela table button {
+    font-size: 14px;
+}
+.ui-datatable.ui-widget.estiloTabela table {
+    font-size: 14px;
+    /*table-layout: inherit;*/
+    /*width: inherit;*/
+    /*width: initial/*calc(100% - 1em)*/;
+}
+.estiloTabela td:nth-child(4n -3), .estiloTabela th:nth-child(4n -3) {
+    text-align: center;
+    width: 40px;
+}
+.estiloTabela td:nth-child(4n -2), .estiloTabela th:nth-child(4n -2) {
+    width: 30%;
+}
+.estiloTabela td:nth-child(4n -1), .estiloTabela th:nth-child(4n -1) {
+    width: 70%;
+}
+.estiloTabela td:nth-child(4n), .estiloTabela th:nth-child(4n) {
+    text-align: center;
+    width: 100px;
+}

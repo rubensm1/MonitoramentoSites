@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template/template1.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="head">
+        <h:outputStylesheet library="resources" name="css/styleCadastro.css" />
+    </ui:define>
+    <ui:define name="conteudo">
+        <h:form>
+            <p:growl id="growl" showDetail="true" sticky="true" widgetVar="ggg" /> 
+            <p:panel header="Locais das Máquinas" style="width: 760px;">
+                <p:panelGrid columns="2" id="dadosLocal" style="width: 100%;">
+                    <p:outputLabel value="ID" />
+                    <p:outputLabel value="#{localBean.localMaquina.id}" />
+                    <p:outputLabel value="Nome Descritivo" />
+                    <p:inputText value="#{localBean.localMaquina.nome}" required="true" requiredMessage="Um Nome é requerido" style="width: 100%;" />
+                    <p:outputLabel value="Link" />
+                    <p:inputText value="#{localBean.localMaquina.url}" required="true" requiredMessage="Uma URL é requerida" style="width: 100%;"/>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <span style="text-align: center; display: block;">
+                        <p:commandButton value="Incerir" styleClass="barraBotoes" action="#{localBean.inserir()}" update="growl locaisDT" process="@form"/>
+                        <p:commandButton value="Alterar" styleClass="barraBotoes" action="#{localBean.alterar()}" update="growl locaisDT" process="@form"/>
+                        <p:commandButton value="Excluir" styleClass="barraBotoes" action="#{localBean.excluir()}" update="growl locaisDT" process="@form"/>
+                        <p:commandButton value="Limpar" styleClass="barraBotoes" action="#{localBean.limpar()}" update="growl dadosLocal" process="@this"/>
+                        <p:commandButton value="Pesquisar" styleClass="barraBotoes" onclick="PF('dlg').show();" process="@this"/>
+                    </span>
+                </f:facet>
+            </p:panel>
+            <p:dialog header="Locais" widgetVar="dlg" height="500" resizable="false" styleClass="layout-arruma-height">
+                <p:dataTable id="locaisDT" var="local" value="#{localBean.locais}" rowKey="#{local.id}" styleClass="estiloTabela" scrollable="true" resizableColumns="true" liveResize="true" style="width: 800px;">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{local.id}" />
+                    </p:column>
+                    <p:column headerText="Nome Descritivo">
+                        <h:outputText value="#{local.nome}" />
+                    </p:column>
+                    <p:column headerText="Link">
+                        <a target="_blank" href="#{local.url}">#{local.url}</a>
+                    </p:column>
+                    <p:column headerText="">
+                        <p:commandButton value="Selecionar" actionListener="#{localBean.selecionar(local)}" oncomplete="PF('dlg').hide();" update="@form:dadosLocal @form:growl" process="@this" />
+                    </p:column>
+                </p:dataTable>
+                <!--                <f:facet name="footer">
+                                    <p:commandButton value="Selecionar" actionListener=""  process="locaisDT" />
+                                </f:facet>-->
+            </p:dialog>  
+            <!--<p:remoteCommand name="upp" update="dadosLocal" />-->
+            <p:remoteCommand name="mmm" actionListener="#{localBean.mens()}" update="growl" process="@this" />
+        </h:form>
+    </ui:define>
+</ui:composition>
