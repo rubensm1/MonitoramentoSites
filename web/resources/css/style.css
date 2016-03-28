@@ -10,8 +10,8 @@ and open the template in the editor.
 .ui-widget, .ui-corner-all {
     font-size: 14px;
 }
-.cabecalho {
-    background-image: url(http://inscricaoead.ufgd.edu.br/sistema/img/logo.png);
+.ui-layout-north.ui-layout-pane.ui-layout-pane-north .ui-layout-unit-content /*.cabecalho*/ {
+    background-image: url(../image/capa.png);
     background-repeat: round;
 }
 
@@ -100,85 +100,86 @@ table.estiloSortRadios td:nth-child(2n -1) {
 
 .ui-datatable .ui-datatable-odd, .ui-datatable .ui-datatable-even {
     /*background-color: #F2F5F9;*/
+    background-image: linear-gradient(to top, rgba(0,0,0,0.1), transparent, rgba(255,255,255,0.1));
     background-color: #FFFFFF;
 }
 .ui-datatable-odd.pauleado {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(255,101,101);
     /*background-color: rgba(255,0,0,0.4);*/
 }
 .ui-datatable-odd.aguardando {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(216,216,216);
     /*background-color: rgba(150,150,150,0.4);*/
 }
 .ui-datatable-odd.ok0 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(178,216,254);
     /*background-color: rgba(85,128,255,0.4);*/
 }
 .ui-datatable-odd.ok1 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(144,228,218);
     /*background-color: rgba(0,210,185,0.4);*/
 }
 .ui-datatable-odd.ok2 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(144,228,144);
     /*background-color: rgba(0,210,0,0.4);*/
 }
 .ui-datatable-odd.ok3 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(204,228,144);
     /*background-color: rgba(150, 220, 0, 0.4);*/
 }
 .ui-datatable-odd.ok4 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(246,230,144);
     /*background-color: rgba(255, 215, 0, 0.4);*/
 }
 .ui-datatable-odd.ok5 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(246,200,144);
     /*background-color: rgba(255, 140, 0, 0.4);*/
 }
 .ui-datatable-even.pauleado {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(255,101,101);
     /*background-color: rgba(255,0,0,0.3);*/
 }
 .ui-datatable-even.aguardando {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(216,216,216);
     /*background-color: rgba(150,150,150,0.3);*/
 }
 .ui-datatable-even.ok0 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(178,216,254);
     /*background-color: rgba(0,128,255,0.3);*/
 }
 .ui-datatable-even.ok1 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(144,228,218);
     /*background-color: rgba(0,210,185,0.3);*/
 }
 .ui-datatable-even.ok2 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(144,228,144);
     /*background-color: rgba(0,210,0,0.3);*/
 }
 .ui-datatable-even.ok3 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(204,228,144);
     /*background-color: rgba(150, 220, 0, 0.3);*/
 }
 .ui-datatable-even.ok4 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(246,230,144);
     /*background-color: rgba(255, 215, 0, 0.3);*/
 }
 .ui-datatable-even.ok5 {
-    background-image: url();
+    /*background-image: url();*/
     background-color: rgb(246,200,144);
     /*background-color: rgba(255, 140, 0, 0.3);*/
 }

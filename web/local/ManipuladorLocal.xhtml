@@ -15,16 +15,16 @@
             <p:panel header="Locais das Máquinas" style="width: 760px;">
                 <p:panelGrid columns="2" id="dadosLocal" style="width: 100%;">
                     <p:outputLabel value="ID" />
-                    <p:outputLabel value="#{localBean.localMaquina.id}" />
+                    <p:outputLabel value="#{localBean.objetoPersistente.id}" />
                     <p:outputLabel value="Nome Descritivo" />
-                    <p:inputText value="#{localBean.localMaquina.nome}" required="true" requiredMessage="Um Nome é requerido" style="width: 100%;" />
+                    <p:inputText value="#{localBean.objetoPersistente.nome}" required="true" requiredMessage="Um Nome é requerido" style="width: 100%;" />
                     <p:outputLabel value="Link" />
-                    <p:inputText value="#{localBean.localMaquina.url}" required="true" requiredMessage="Uma URL é requerida" style="width: 100%;"/>
+                    <p:inputText value="#{localBean.objetoPersistente.url}" required="true" requiredMessage="Uma URL é requerida" style="width: 100%;"/>
                 </p:panelGrid>
                 <f:facet name="footer">
                     <span style="text-align: center; display: block;">
-                        <p:commandButton value="Incerir" styleClass="barraBotoes" action="#{localBean.inserir()}" update="growl locaisDT" process="@form"/>
-                        <p:commandButton value="Alterar" styleClass="barraBotoes" action="#{localBean.alterar()}" update="growl locaisDT" process="@form"/>
+                        <p:commandButton value="Inserir" styleClass="barraBotoes" action="#{localBean.inserir()}" update="growl locaisDT dadosLocal" process="@form"/>
+                        <p:commandButton value="Alterar" styleClass="barraBotoes" action="#{localBean.alterar()}" update="growl locaisDT dadosLocal" process="@form"/>
                         <p:commandButton value="Excluir" styleClass="barraBotoes" action="#{localBean.excluir()}" update="growl locaisDT" process="@form"/>
                         <p:commandButton value="Limpar" styleClass="barraBotoes" action="#{localBean.limpar()}" update="growl dadosLocal" process="@this"/>
                         <p:commandButton value="Pesquisar" styleClass="barraBotoes" onclick="PF('dlg').show();" process="@this"/>
@@ -32,7 +32,7 @@
                 </f:facet>
             </p:panel>
             <p:dialog header="Locais" widgetVar="dlg" height="500" resizable="false" styleClass="layout-arruma-height">
-                <p:dataTable id="locaisDT" var="local" value="#{localBean.locais}" rowKey="#{local.id}" styleClass="estiloTabela" scrollable="true" resizableColumns="true" liveResize="true" style="width: 800px;">
+                <p:dataTable id="locaisDT" var="local" value="#{localBean.lista}" rowKey="#{local.id}" styleClass="estiloTabela" scrollable="true" resizableColumns="true" liveResize="true" style="width: 800px;">
                     <p:column headerText="Id">
                         <h:outputText value="#{local.id}" />
                     </p:column>
@@ -43,7 +43,7 @@
                         <a target="_blank" href="#{local.url}">#{local.url}</a>
                     </p:column>
                     <p:column headerText="">
-                        <p:commandButton value="Selecionar" actionListener="#{localBean.selecionar(local)}" oncomplete="PF('dlg').hide();" update="@form:dadosLocal @form:growl" process="@this" />
+                        <p:commandButton value="Selecionar" action="#{localBean.selecionar(local)}" oncomplete="PF('dlg').hide();" update="@form:dadosLocal @form:growl" process="@this" />
                     </p:column>
                 </p:dataTable>
                 <!--                <f:facet name="footer">

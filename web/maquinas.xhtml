@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template/template1.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head">
+        <h:outputStylesheet library="resources" name="css/style.css" />
+    </ui:define>
+    <ui:define name="conteudo">
+        <!--<h:outputScript library="resources/script.js" />-->
+
+        <p:layout>
+            <p:layoutUnit position="center" styleClass="layout-arruma-height">
+                <h:form id="formConteudo" styleClass="arrumar">
+                    <p:growl id="growl" showDetail="true" sticky="true" widgetVar="groww" /> 
+                    <div id="conteudo" style="font-size: 20px;  width: inherit; height: 25px; text-align: center; margin-bottom: 5px;"></div>
+                    <p:dataTable id="locaisDT" var="maquina" styleClass="estiloTabela" value="#{maquinaBean.lista}" rowKey="#{maquina.id}" widgetVar="tabela" scrollable="true" resizableColumns="true" liveResize="true">
+                        <p:column style="text-align: center; width: 16px;">
+                            <input type="hidden" id="linha#{maquina.id}" />
+                            <input type="checkbox" onchange="setaMaquina(new Maquina(#{maquina.id}, '#{maquina.nome}', '#{maquina.endereco}', '#{maquina.ip}', this.checked))" disabled="true" />
+                            <!--<p:selectBooleanCheckbox disabled="{not localBean.conectadoWebSocket}" onchange="setaMaquina(new LocalMaquina({local.id}, '{local.nome}', '{local.url}',{'chk'.concat(local.id)}.isChecked()))" widgetVar="{'chk'.concat(local.id)}" />-->
+                        </p:column>
+                        <p:column headerText="Id" style="text-align: center; width: 30px;" >
+                            <h:outputText value="#{maquina.id}" />
+                        </p:column>
+                        <p:column headerText="Nome Descritivo" resizable="true" style="width: 30%;">
+                            <h:outputText value="#{maquina.nome}" title="#{maquina.nome}" />
+                        </p:column>
+                        <p:column headerText="Endereco" resizable="true" style="width: 70%;">
+                            <h:outputText value="#{maquina.endereco}" title="#{maquina.endereco}" />
+                            <!--<a target="_blank" href="{maquina.url}" title="{maquina.url}">{maquina.url}</a>-->
+                        </p:column>
+                        <p:column headerText="IP" resizable="true" style="text-align: center; width: 125px;">
+                            <h:outputText value="#{maquina.ip}" title="#{maquina.ip}" />
+                        </p:column>
+                        <p:column  headerText="Status" styleClass="colunaStatus">
+                        </p:column>
+                        <p:column headerText="Tempo (ms)" style="text-align: center; width: 90px;">
+
+                        </p:column>
+                    </p:dataTable>
+                    <p:remoteCommand name="mostraMensagem" process="@this" update="growl" />
+                    
+                </h:form>
+            </p:layoutUnit>
+            <p:layoutUnit position="south" size="103" resizable="false">
+                <h:form class="arrumar">
+                    <p:panelGrid>
+                        <p:row>
+                            <p:column>
+                                <p:button value="Ativar Tudo" styleClass="barraBotoes" onclick="tabelaStatusConexao.ligarTudo(); return false;" />
+                            </p:column>
+                            <p:column rowspan="2">
+                                <p:panelGrid styleClass="estiloSort">
+                                    <p:row>
+                                        <p:column style="font-weight: bold;">
+                                            SORT
+                                        </p:column>
+                                        <p:column>
+                                            ID
+                                        </p:column>
+                                        <p:column>
+                                            Nome
+                                        </p:column>
+                                        <p:column>
+                                            Status
+                                        </p:column>
+                                        <p:column>
+                                            Tempo
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="text-align: center;">
+                                            <p:outputLabel value="asc" />
+                                        </p:column>
+                                        <p:column colspan="4" rowspan="2" style="padding: 0px;">
+                                            <p:selectOneRadio id="radioSort" widgetVar="raaa" onchange="tabelaStatusConexao.selecionaSort( eval(event.target.value)[0], eval(event.target.value)[1] )" layout="grid" columns="4" styleClass="estiloSortRadios">
+                                                <f:selectItem itemLabel="" itemValue="['tdId',true]" />
+                                                <f:selectItem itemLabel="" itemValue="['tdNome',true]" />
+                                                <f:selectItem itemLabel="" itemValue="['tdStatusDescricao',true]" />
+                                                <f:selectItem itemLabel="" itemValue="['tdStatusDelay',true]" />
+                                                <f:selectItem itemLabel="" itemValue="['tdId',false]" />
+                                                <f:selectItem itemLabel="" itemValue="['tdNome',false]" />
+                                                <f:selectItem itemLabel="" itemValue="['tdStatusDescricao',false]" />
+                                                <f:selectItem itemLabel="" itemValue="['tdStatusDelay',false]" />
+                                            </p:selectOneRadio>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="text-align: center;">
+                                            <p:outputLabel value="desc" />
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:button value="Desativar Tudo" styleClass="barraBotoes" onclick="tabelaStatusConexao.desligarTudo(); return false;" />
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+        <script>
+            var tabelaStatusConexao = new TabelaStatusConexao("maquina");
+            var conexao = null;
+            function addMensagem(msg) {
+                //document.getElementById("conteudo").innerHTML += msg + "\n";
+                document.getElementById("conteudo").innerHTML = msg;
+                //document.getElementById("conteudo").contentWindow.document.documentElement.innerHTML = msg;
+            }
+            function conectar(link) {
+                conexao = new WebSocket(link);
+                // When the connection is open, send some data to the server
+                conexao.onopen = function() {
+                    //conexao.send('Ping');
+                    addMensagem("Conectado!");
+                    tabelaStatusConexao.habilitarCheckBoxs();
+                };
+                conexao.onerror = function(error) {
+                    console.log('WebSocket Error ' + error);
+                };
+                conexao.onmessage = function(e) {
+                    var obj = new Mensagem(e.data);
+                    console.log(obj);
+                    if (obj.erro != null &amp;&amp; obj.erro != "")
+                    {
+                        groww.renderMessage(new MensagemGrowl(obj.erro));
+                        return;
+                    }
+                    switch (obj.tipo) {
+                        case "init":
+                            tabelaStatusConexao.iniciaStatusConexoes(JSON.parse(obj.dados));
+                            break;
+                        case "ping":
+                            mostraStatus(new StatusConexao(obj.dados));
+                            break;
+                        case "desat":
+                            mostraStatus(new StatusConexao(parseInt(obj.dados),"",""));
+                            break;
+                        default:
+
+                            break;
+                    }
+                };
+                conexao.onclose = function(evt) {
+                    console.log('WebSocket Close ' + evt);
+                    addMensagem("Desconectado!");
+                    tabelaStatusConexao.desabilitarCheckBoxs();
+                    tabelaStatusConexao.limparConexoes();
+                };
+            }
+            function mostraStatus(statusConexao) {
+                tabelaStatusConexao.atualizaStatus(statusConexao);
+            }
+            function setaMaquina(maquina) {
+                console.log(maquina);
+                enviarMensagem(maquina);
+                if (maquina.ativa) {
+                    mostraStatus(new StatusConexao(maquina.id, "...","Conectando..."));
+                }
+                else {
+                    mostraStatus(new StatusConexao(maquina.id, "",""));
+                }
+            }
+            function enviarMensagem(maquina) {
+                var msg = new Mensagem("conectMaquina", "Maquina", JSON.stringify(maquina), "");
+                console.log(msg);
+                conexao.send(JSON.stringify(msg));
+                //document.getElementById(link.id).value = '';
+            }
+            function enforcaServidor() {
+                var msg = new Mensagem("matar", "String", "", "");
+                conexao.send(JSON.stringify(msg));
+            }
+            addMensagem("Desconectado!");
+            conectar(geraLink());
+        </script>
+        <!--        <h:form id="formu" prependId="false">
+                    <p:remoteCommand autoRun="true" update="ll">
+                        <f:setPropertyActionListener target="{webSocketBean.link}" value="javascript:geraLink()" />
+                    </p:remoteCommand>
+                    <p:outputLabel id="ll" value="{webSocketBean.link}" />
+                </h:form>-->
+    </ui:define>
+</ui:composition>

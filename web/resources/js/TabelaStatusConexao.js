@@ -163,8 +163,11 @@ TabelaStatusConexao = (function() {
 
     /**
      * Objeto para gerenciar o Status das conexões recebidas do servidor
+     * @param {String} t 
      */
-    function TabelaStatusConexao() {
+    function TabelaStatusConexao(t) {
+        var tipo = t;
+        this.getTipo = function () {return tipo;};
         var listaIDs = this.obtemIDs();
         this.listaLinhasConexoes = [];
         for (var i in listaIDs) {
@@ -211,14 +214,29 @@ TabelaStatusConexao = (function() {
         linha.tr = $("form#formConteudo table tr:has(input#linha" + id + ")");
         if (linha.tr.size() === 0)
             return null;
-        linha.checkBox = $(linha.tr[0]).find(":checkbox");//PF("chk" + id);
-        linha.tdId = $(linha.tr[0]).find("td:eq(1)");
-        linha.tdNome = $(linha.tr[0]).find("td:eq(2)");
-        linha.aLink = $(linha.tr[0]).find("td:eq(3) a");
-        linha.tdStatusDescricao = $(linha.tr[0]).find("td:eq(4)");
-        linha.tdStatusDelay = $(linha.tr[0]).find("td:eq(5)");
-        linha.classeEstilo = null;
-        return linha;
+        if (this.getTipo() === "local")
+        {
+            linha.checkBox = $(linha.tr[0]).find(":checkbox");//PF("chk" + id);
+            linha.tdId = $(linha.tr[0]).find("td:eq(1)");
+            linha.tdNome = $(linha.tr[0]).find("td:eq(2)");
+            linha.aLink = $(linha.tr[0]).find("td:eq(3) a");
+            linha.tdStatusDescricao = $(linha.tr[0]).find("td:eq(4)");
+            linha.tdStatusDelay = $(linha.tr[0]).find("td:eq(5)");
+            linha.classeEstilo = null;
+            return linha;
+        }
+        else if (this.getTipo() === "maquina")
+        {
+            linha.checkBox = $(linha.tr[0]).find(":checkbox");//PF("chk" + id);
+            linha.tdId = $(linha.tr[0]).find("td:eq(1)");
+            linha.tdNome = $(linha.tr[0]).find("td:eq(2)");
+            linha.aLink = $(linha.tr[0]).find("td:eq(3)");
+            linha.ip = $(linha.tr[0]).find("td:eq(4)");
+            linha.tdStatusDescricao = $(linha.tr[0]).find("td:eq(5)");
+            linha.tdStatusDelay = $(linha.tr[0]).find("td:eq(6)");
+            linha.classeEstilo = null;
+            return linha;
+        }
     };
 
     /**

@@ -4,7 +4,6 @@ import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import websocket.entidade.LocalMaquina;
-import websocket.entidade.StatusConexao;
 import websocket.entidade.mensagem.Mensagem;
 import websocket.entidade.mensagem.MensagemGrowl;
 
@@ -37,8 +36,9 @@ public class Comunicador extends Thread {
         try {
             while(this.localMaquina.isAtiva()) {
                 synchronized(this.localMaquina){
-                    Mensagem mensagem = new Mensagem("ping", navegador.ping(localMaquina.getId()), "");
+                    Mensagem mensagem = new Mensagem("ping", navegador.pingLink(localMaquina.getId()), "");
                     PontoWebSocket.enviaObjeto(mensagem);
+                    System.out.println(mensagem);
                 }
                 this.sleep(5000);
             }

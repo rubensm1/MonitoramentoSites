@@ -10,6 +10,7 @@ public enum ClassesRegistradas {
     Integer(new Integer(0).getClass().getSimpleName(), Integer.class),
     ArrayInteger(new Integer[]{}.getClass().getSimpleName(), Integer[].class),
     LocalMaquina(new LocalMaquina().getClass().getSimpleName(), LocalMaquina.class),
+    Maquina(new Maquina().getClass().getSimpleName(), Maquina.class),
     StatusConexao(new StatusConexao().getClass().getSimpleName(), StatusConexao.class);
     
     private String nome;

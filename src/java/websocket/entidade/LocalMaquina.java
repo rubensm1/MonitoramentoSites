@@ -6,17 +6,13 @@
 
 package websocket.entidade;
 
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +24,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import util.ExceptionPersonalizada;
-import websocket.controle.ConexaoEntityManager;
 
 /**
  *
@@ -42,7 +37,7 @@ import websocket.controle.ConexaoEntityManager;
     @NamedQuery(name = "LocalMaquina.findById", query = "SELECT l FROM LocalMaquina l WHERE l.id = :id"),
     @NamedQuery(name = "LocalMaquina.findByNome", query = "SELECT l FROM LocalMaquina l WHERE l.nome = :nome"),
     @NamedQuery(name = "LocalMaquina.findByUrl", query = "SELECT l FROM LocalMaquina l WHERE l.url = :url")})
-public class LocalMaquina implements Serializable {
+public class LocalMaquina implements Persistente{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -116,27 +111,12 @@ public class LocalMaquina implements Serializable {
         this.url = url.toExternalForm();
     }
 
-    public static List<LocalMaquina> listar() throws ExceptionPersonalizada {
-        EntityManager entityManager = ConexaoEntityManager.getEntityManager();
-        List<LocalMaquina> localMaquinas;
-        try {
-            entityManager.getTransaction().begin();
-            localMaquinas = entityManager.createNamedQuery("LocalMaquina.findAll").getResultList();
-            entityManager.getTransaction().commit();
-            //entityManager.close();
-            return localMaquinas;
-        } catch (Exception e) {
-            e.printStackTrace();
-            entityManager.getTransaction().rollback();
-            //entityManager.close();
-            throw new ExceptionPersonalizada(e);
-        }
-    }
-
+    @Override
     public Integer getId() {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

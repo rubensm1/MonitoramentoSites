@@ -12,11 +12,25 @@
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>Monitoramento</title>
             </f:facet>
-            <h:outputScript library="resources" name="js/LocalMaquina.js" />
+            <script>
+                function geraLink() {
+                    //return "ws://" + document.location.host + document.location.pathname + "endpoint";
+                    return "ws://#{request.localAddr}:#{request.localPort}#{request.contextPath}/endpoint";
+                    //return "ws://192.168.6.1:#{request.localPort}#{request.contextPath}/endpoint";
+                }
+            </script>
+<!--            <h:outputScript library="resources" name="js/LocalMaquina.js" />
+            <h:outputScript library="resources" name="js/Maquina.js" />
             <h:outputScript library="resources" name="js/Mensagem.js" />
             <h:outputScript library="resources" name="js/MensagemGrowl.js" />
             <h:outputScript library="resources" name="js/StatusConexao.js" />
-            <h:outputScript library="resources" name="js/TabelaStatusConexao.js" />
+            <h:outputScript library="resources" name="js/TabelaStatusConexao.js" />-->
+            <script src="resources/js/LocalMaquina.js"></script>
+            <script src="resources/js/Maquina.js"></script>
+            <script src="resources/js/Mensagem.js"></script>
+            <script src="resources/js/MensagemGrowl.js"></script>
+            <script src="resources/js/StatusConexao.js"></script>
+            <script src="resources/js/TabelaStatusConexao.js"></script>
             <ui:insert name="head" />
         </h:head>
 
@@ -24,12 +38,22 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100">
-
+                <p:layoutUnit position="north" header="Monitoramento de Sistemas" size="150" collapsible="true">
+                    <table style="height: 100%; width: 100%;">
+                        <tr>
+                            <td style="width: 150px; text-align: center;">
+                                <img src="resources/image/logo_ufgd.gif" height="100px;" />
+                            </td>
+                            <td></td>
+                            <td style="width: 150px; text-align: center;">
+                                <img src="resources/image/coin.png" height="100px;" />
+                            </td>
+                        </tr>
+                    </table>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="30">
-
+                    ws://#{request.localAddr}:#{request.localPort}#{request.contextPath}/endpoint
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="250" header="Menu" collapsible="true" >
@@ -37,6 +61,7 @@
                         <p:menu style="width: inherit;">
                             <p:menuitem value="Inicio" url="/" />
                             <p:menuitem value="Locais das Máquinas" url="/local/ManipuladorLocal.xhtml" />
+                            <p:menuitem value="Máquinas" url="/maquinas/ManipuladorMaquinas.xhtml" />
                         </p:menu>
                         <p:themeSwitcher style="width:165px" value="#{themeService.temaAtual}" valueChangeListener="#{themeService.sauvaTema}">
                             <f:selectItem itemLabel="Escolha o Tema" itemValue="" />

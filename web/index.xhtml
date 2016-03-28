@@ -7,7 +7,8 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="head">
-        <h:outputStylesheet library="resources" name="css/style.css" />
+        <!--<h:outputStylesheet library="resources" name="css/style.css" />-->
+        <link rel="stylesheet" href="resources/css/style.css"></link>
     </ui:define>
     <ui:define name="conteudo">
         <!--<h:outputScript library="resources/script.js" />-->
@@ -17,7 +18,7 @@
                 <h:form id="formConteudo" styleClass="arrumar">
                     <p:growl id="growl" showDetail="true" sticky="true" widgetVar="groww" /> 
                     <div id="conteudo" style="font-size: 20px;  width: inherit; height: 25px; text-align: center; margin-bottom: 5px;"></div>
-                    <p:dataTable id="locaisDT" var="local" styleClass="estiloTabela" value="#{localBean.locais}" rowKey="#{local.id}" widgetVar="tabela" scrollable="true" resizableColumns="true" liveResize="true">
+                    <p:dataTable id="locaisDT" var="local" styleClass="estiloTabela" value="#{localBean.lista}" rowKey="#{local.id}" widgetVar="tabela" scrollable="true" resizableColumns="true" liveResize="true">
                         <p:column style="text-align: center; width: 16px;">
                             <input type="hidden" id="linha#{local.id}" />
                             <input type="checkbox" onchange="setaLocalMaquina(new LocalMaquina(#{local.id}, '#{local.nome}', '#{local.url}',this.checked))" disabled="true" />
@@ -43,7 +44,7 @@
                     
                 </h:form>
             </p:layoutUnit>
-            <p:layoutUnit position="south" size="103" resizable="false">
+            <p:layoutUnit position="south" size="104" resizable="false">
                 <h:form class="arrumar">
                     <p:panelGrid>
                         <p:row>
@@ -104,10 +105,7 @@
             </p:layoutUnit>
         </p:layout>
         <script>
-            var tabelaStatusConexao = new TabelaStatusConexao();
-            function geraLink() {
-                return "ws://" + document.location.host + document.location.pathname + "endpoint";
-            }
+            var tabelaStatusConexao = new TabelaStatusConexao("local");
             var conexao = null;
             function addMensagem(msg) {
                 //document.getElementById("conteudo").innerHTML += msg + "\n";
@@ -135,7 +133,7 @@
                     }
                     switch (obj.tipo) {
                         case "init":
-                            tabelaStatusConexao.iniciaStatusConexoes(JSON.parse(obj.dados))
+                            tabelaStatusConexao.iniciaStatusConexoes(JSON.parse(obj.dados));
                             break;
                         case "ping":
                             mostraStatus(new StatusConexao(obj.dados));
@@ -151,6 +149,7 @@
                 conexao.onclose = function(evt) {
                     console.log('WebSocket Close ' + evt);
                     addMensagem("Desconectado!");
+                    kkk = evt;
                     tabelaStatusConexao.desabilitarCheckBoxs();
                     tabelaStatusConexao.limparConexoes();
                 };

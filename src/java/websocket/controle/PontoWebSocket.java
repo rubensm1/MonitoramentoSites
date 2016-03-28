@@ -1,6 +1,7 @@
 package websocket.controle;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,6 +20,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import websocket.entidade.LocalMaquina;
+import websocket.entidade.Maquina;
 import websocket.entidade.mensagem.Mensagem;
 import websocket.entidade.mensagem.MensagemGrowl;
 import websocket.entidade.mensagem.encoder.MensagemDecoder;
@@ -34,8 +36,9 @@ import websocket.entidade.mensagem.encoder.MensagemEncoder;
         value = "/endpoint")
 public class PontoWebSocket extends Endpoint {
 
-    private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
-    private static Map<Integer, Comunicador> comunicadores = Collections.synchronizedMap(new HashMap<Integer, Comunicador>());
+    private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
+    private static final Map<Integer, Comunicador> comunicadores = Collections.synchronizedMap(new HashMap<Integer, Comunicador>());
+    private static final Map<Integer, Pingador> pingadores = Collections.synchronizedMap(new HashMap<Integer, Pingador>());
 
     @OnMessage
     public void onMessage(Mensagem mensagem, Session session) throws IOException, EncodeException {
@@ -66,6 +69,31 @@ public class PontoWebSocket extends Endpoint {
                     }
                 }
                 break;
+            case "conectMaquina":
+                Maquina maquina = (Maquina) mensagem.getDados();
+                if (maquina.isAtiva()) {
+                    if (pingadores.get(maquina.getId()) == null) {
+                        try {
+                            Pingador pingador = new Pingador(maquina);
+                            pingadores.put(maquina.getId(), pingador);
+                            pingador.start();
+                        } catch(UnknownHostException ex) {
+                            Mensagem msg = new Mensagem("erro", "", MensagemGrowl.mensagemErro(ex));
+                            session.getBasicRemote().sendObject(msg);
+                        }
+                    }
+                } else {
+                    Pingador pingador = pingadores.get(maquina.getId());
+                    if (pingador != null) {
+                        synchronized(pingador.getMaquina()){
+                            pingador.getMaquina().setAtiva(false);
+                        }
+                        mensagem = new Mensagem("desat", pingador.getMaquina().getId(), "");
+                        enviaObjeto(mensagem);
+                        pingadores.remove(maquina.getId());
+                    }
+                }
+                break;
             case "matar":
                 //Server server = new Server("localhost", 8080, "/Monitoramento", PontoWebSocket.class);
                 /*try {
@@ -89,7 +117,7 @@ public class PontoWebSocket extends Endpoint {
     @Override
     public void onOpen(Session peer, EndpointConfig config) {
         peers.add(peer);
-        Mensagem mensagem = new Mensagem("init", null, "");
+        /*Mensagem mensagem = new Mensagem("init", null, "");
         Integer[] ids = new Integer[comunicadores.size()];
         int i = 0;
         for (Comunicador comunicador : comunicadores.values()) {
@@ -98,7 +126,7 @@ public class PontoWebSocket extends Endpoint {
             i++;
         }
         mensagem.setDados(ids);
-        enviaObjetoRestrito(mensagem, peer);
+        enviaObjetoRestrito(mensagem, peer);*/
     }
 
     @OnClose
@@ -107,6 +135,7 @@ public class PontoWebSocket extends Endpoint {
         peers.remove(peer);
         if (peers.isEmpty()) {
             desconectarComunicadores();
+            desconectarPingadores();
         }
     }
 
@@ -130,7 +159,7 @@ public class PontoWebSocket extends Endpoint {
     public synchronized static void enviaObjetoRestrito(Mensagem mensagem, Session session) {
         try {
             session.getBasicRemote().sendObject(mensagem);
-            System.out.println(mensagem);
+            //System.out.println(mensagem);
         } catch (IOException | EncodeException ex) {
             Logger.getLogger(PontoWebSocket.class.getName()).log(Level.SEVERE, null, ex);
             mensagem.setDados("");
@@ -159,5 +188,12 @@ public class PontoWebSocket extends Endpoint {
             comunicador.getLocalMaquina().setAtiva(false);
         }
         comunicadores.clear();
+    }
+    
+    private void desconectarPingadores() {
+        for (Pingador pingador : pingadores.values()) {
+            pingador.getMaquina().setAtiva(false);
+        }
+        pingadores.clear();
     }
 }
