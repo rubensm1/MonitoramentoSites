@@ -8,10 +8,10 @@
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
         <param-value>.xhtml</param-value>
     </context-param>
-    <context-param>   
-        <param-name>primefaces.THEME</param-name>   
-        <param-value>home</param-value>   
-    </context-param>  
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>home</param-value>
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -33,4 +33,37 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    
+    
+    <filter>
+        <filter-name>ComumFilter</filter-name>
+        <filter-class>websocket.filter.ComumFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ComumFilter</filter-name>
+        <url-pattern>/local/*</url-pattern>
+        <url-pattern>/maquinas/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>AdministradorFilter</filter-name>
+        <filter-class>websocket.filter.AdministradorFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdministradorFilter</filter-name>
+        <url-pattern>/usuario/cadastroAdmin.xhtml</url-pattern>
+    </filter-mapping>
+    
+    
+    <error-page>
+        <error-code>401</error-code>
+        <location>/error/401.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/500.xhtml</location>
+    </error-page>
 </web-app>

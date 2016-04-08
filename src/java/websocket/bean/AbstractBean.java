@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import util.ExceptionPersonalizada;
 import websocket.controle.ConexaoEntityManager;
 import websocket.entidade.Persistente;
@@ -88,6 +89,10 @@ public abstract class AbstractBean {
         this.objetoPersistente = objetoPersistente;
     }
     
+    public boolean isSelecionado() {
+        return this.objetoPersistente == null || this.objetoPersistente.getId() == null ? false : this.objetoPersistente.getId() > 0;
+    }
+    
     public void novaMensagem(String titulo, String detalhes, FacesMessage.Severity icone) {
         if (icone == null) {
             icone = FacesMessage.SEVERITY_INFO;
@@ -97,6 +102,10 @@ public abstract class AbstractBean {
 
     public void novaMensagem(FacesMessage facesMessage) {
         FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+    }
+    
+    public String getLinkPaginaInicial() {
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml";
     }
 
 }

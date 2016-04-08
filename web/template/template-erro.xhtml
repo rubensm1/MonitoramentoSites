@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Monitoramento</title>
+            </f:facet>
+            <ui:insert name="head" />
+            <style type="text/css">
+                h1 {
+                    font-size: 72px;
+                }
+                h2 {
+                    font-size: 54px;
+                }
+            </style>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" header="Monitoramento de Sistemas" size="150" collapsible="true">
+                    <table style="height: 100%; width: 100%;">
+                        <tr>
+                            <td style="width: 150px; text-align: center;">
+                                <h:graphicImage library="resources" name="css/image/logo_ufgd.gif" height="100" />
+                                <!--<img src="resources/image/logo_ufgd.gif" height="100px;" />-->
+                            </td>
+                            <td></td>
+                            <td style="width: 150px; text-align: center;">
+                                <h:graphicImage library="resources" name="css/image/coin.png" height="100" />
+                                <!--<img src="resources/image/coin.png" height="100px;" />-->
+                            </td>
+                        </tr>
+                    </table>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="30">
+                    ws://#{request.localAddr}:#{request.localPort}#{request.contextPath}/endpoint
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <p:panel header="Erro">
+                        <ui:insert name="conteudo" />
+                    </p:panel>
+                    <p:panel>
+                        <center>
+                            <p:button style="width: 150px;" value="Página Inicial" href="/index.xhtml" />
+                        </center>
+                    </p:panel>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>

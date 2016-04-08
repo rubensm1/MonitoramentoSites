@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/template/template1.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head">
+        <h:outputStylesheet library="resources" name="css/style.css" />
+        <!--<link rel="stylesheet" href="../resources/css/style.css"></link>-->
+    </ui:define>
+    <ui:define name="conteudo">
+        <h:form>
+            <p:growl id="growl" showDetail="true" sticky="true" widgetVar="ggg" /> 
+            <p:panel header="Cadastro de Usuários" style="width: 760px;">
+                <p:panelGrid columns="2" id="dadosUsuario" style="width: 100%;">
+                    <p:outputLabel value="ID" />
+                    <p:outputLabel value="#{usuarioBean.objetoPersistente.id}" />
+                    <p:outputLabel value="Nome" />
+                    <p:inputText value="#{usuarioBean.objetoPersistente.nome}" required="true" requiredMessage="Um Nome é requerido" style="width: 100%;" />
+                    <p:outputLabel value="Login" />
+                    <p:inputText value="#{usuarioBean.objetoPersistente.login}" required="true" requiredMessage="Um Login é requerida" style="width: 100%;"/>
+                    <p:outputLabel value="Senha" />
+                    <p:password value="#{usuarioBean.objetoPersistente.senha}" match="pwd2" validatorMessage="As senhas não conferem!" required="true" requiredMessage="Uma Senha é requerida" style="width: 100%;"/>
+                    <p:outputLabel value="Confirmação da Senha" />
+                    <p:password id="pwd2" value="#{usuarioBean.objetoPersistente.senha}" required="true" requiredMessage="Uma confirmação da Senha é requerida" style="width: 100%;"/>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <span style="text-align: center; display: block;">
+                        <p:commandButton value="Confirmar" styleClass="barraBotoes" action="#{usuarioBean.cadastrar()}" update="growl dadosUsuario" process="@form"/>
+                        <p:commandButton value="Limpar" styleClass="barraBotoes" action="#{usuarioBean.limpar()}" update="growl dadosUsuario" process="@this"/>
+                    </span>
+                </f:facet>
+            </p:panel>
+            <p:remoteCommand name="mmm" actionListener="#{usuarioBean.mens()}" update="growl" process="@this" />
+        </h:form>
+    </ui:define>
+</ui:composition>

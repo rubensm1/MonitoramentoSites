@@ -6,8 +6,12 @@
 package websocket.controle;
 
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import util.ExceptionPersonalizada;
 import websocket.entidade.Persistente;
 
@@ -64,7 +68,7 @@ public final class ConexaoEntityManager {
     public static void alterar(Persistente objeto) throws ExceptionPersonalizada {
         try {
             entityManager.getTransaction().begin();
-            entityManager.refresh(objeto);
+            entityManager.merge(objeto);
             entityManager.getTransaction().commit();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -90,7 +94,11 @@ public final class ConexaoEntityManager {
         System.out.println();*/
         try {
             entityManager.getTransaction().begin();
-            lista = entityManager.createNamedQuery(classe.getSimpleName() + ".findAll").getResultList();
+            //lista = entityManager.createNamedQuery(classe.getSimpleName() + ".findAll").getResultList();
+            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<? extends Persistente> criteria = builder.createQuery( classe );
+            
+            lista = entityManager.createQuery( criteria ).getResultList();
             entityManager.getTransaction().commit();
             //entityManager.close();
             return lista;
@@ -103,4 +111,26 @@ public final class ConexaoEntityManager {
         }
     }
     
+    public static List<? extends Persistente> listarNamedQuery(Class<? extends Persistente> classe, String namedQuery, Map<String, Object> parametros) throws ExceptionPersonalizada {
+        List<? extends Persistente> lista;
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNamedQuery(classe.getSimpleName() + "." + namedQuery);
+            if (parametros != null) {
+                for (Map.Entry<String, Object> entry : parametros.entrySet()) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+                    query.setParameter(key, value);
+                }
+            }
+            lista = query.getResultList();
+            entityManager.getTransaction().commit();
+            return lista;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
+            throw new ExceptionPersonalizada(e);
+        }
+    }
 }

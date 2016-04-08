@@ -12,3 +12,10 @@ CREATE TABLE monitorador.Maquina (
     endereco VARCHAR (64) NOT NULL,
     ip VARCHAR (16)
 );
+
+CREATE TABLE monitorador.Usuario (
+	id SERIAL PRIMARY KEY,
+	nome VARCHAR(63) NOT NULL,
+	login VARCHAR(15) NOT NULL,
+	senha VARCHAR(63) NOT NULL
+);

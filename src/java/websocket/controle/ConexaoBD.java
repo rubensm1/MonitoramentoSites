@@ -28,7 +28,7 @@ public class ConexaoBD {
             return conexao.createStatement();
         return null;
     }
-
+    
     public void finalizar() throws SQLException {
         conexao.close();
     }
