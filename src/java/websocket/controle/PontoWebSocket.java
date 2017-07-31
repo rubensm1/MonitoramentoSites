@@ -19,7 +19,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-import websocket.entidade.LocalMaquina;
+import websocket.entidade.Sistema;
 import websocket.entidade.Maquina;
 import websocket.entidade.mensagem.Mensagem;
 import websocket.entidade.mensagem.MensagemGrowl;
@@ -50,22 +50,22 @@ public class PontoWebSocket extends Endpoint {
 
                 break;
             case "conect":
-                LocalMaquina localMaquina = (LocalMaquina) mensagem.getDados();
-                if (localMaquina.isAtiva()) {
-                    if (comunicadores.get(localMaquina.getId()) == null) {
-                        Comunicador comunicador = new Comunicador(localMaquina);
-                        comunicadores.put(localMaquina.getId(), comunicador);
+                Sistema sistema = (Sistema) mensagem.getDados();
+                if (sistema.isAtivo()) {
+                    if (comunicadores.get(sistema.getId()) == null) {
+                        Comunicador comunicador = new Comunicador(sistema);
+                        comunicadores.put(sistema.getId(), comunicador);
                         comunicador.start();
                     }
                 } else {
-                    Comunicador comunicador = comunicadores.get(localMaquina.getId());
+                    Comunicador comunicador = comunicadores.get(sistema.getId());
                     if (comunicador != null) {
                         synchronized(comunicador.getLocalMaquina()){
-                            comunicador.getLocalMaquina().setAtiva(false);
+                            comunicador.getLocalMaquina().setAtivo(false);
                         }
                         mensagem = new Mensagem("desat", comunicador.getLocalMaquina().getId(), "");
                         enviaObjeto(mensagem);
-                        comunicadores.remove(localMaquina.getId());
+                        comunicadores.remove(sistema.getId());
                     }
                 }
                 break;
@@ -185,7 +185,7 @@ public class PontoWebSocket extends Endpoint {
 
     private void desconectarComunicadores() {
         for (Comunicador comunicador : comunicadores.values()) {
-            comunicador.getLocalMaquina().setAtiva(false);
+            comunicador.getLocalMaquina().setAtivo(false);
         }
         comunicadores.clear();
     }

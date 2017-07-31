@@ -18,11 +18,11 @@
                 <h:form id="formConteudo" styleClass="arrumar">
                     <p:growl id="growl" showDetail="true" sticky="true" widgetVar="groww" /> 
                     <div id="conteudo" style="font-size: 20px;  width: inherit; height: 25px; text-align: center; margin-bottom: 5px;"></div>
-                    <p:dataTable id="locaisDT" var="local" styleClass="estiloTabela" value="#{localBean.lista}" rowKey="#{local.id}" widgetVar="tabela" scrollable="true" resizableColumns="true" liveResize="true">
-                        <p:column style="text-align: center; width: 16px;" rendered="#{usuarioBean.isPermitidoComum()}">
+                    <p:dataTable id="locaisDT" var="local" styleClass="estiloTabela" value="#{sistemaBean.lista}" rowKey="#{local.id}" widgetVar="tabela" scrollable="true" resizableColumns="true" liveResize="true">
+                        <p:column style="text-align: center; width: 16px;" >
                             <input type="hidden" id="linha#{local.id}" />
-                            <input type="checkbox" onchange="setaLocalMaquina(new LocalMaquina(#{local.id}, '#{local.nome}', '#{local.url}',this.checked))" disabled="true" />
-                            <!--<p:selectBooleanCheckbox disabled="{not localBean.conectadoWebSocket}" onchange="setaLocalMaquina(new LocalMaquina({local.id}, '{local.nome}', '{local.url}',{'chk'.concat(local.id)}.isChecked()))" widgetVar="{'chk'.concat(local.id)}" />-->
+                            <input type="checkbox" onchange="setaSistema(new Sistema(#{local.id}, '#{local.nome}', '#{local.url}',this.checked))" disabled="true" />
+                            <!--<p:selectBooleanCheckbox disabled="{not localBean.conectadoWebSocket}" onchange="setaSistema(new Sistema({local.id}, '{local.nome}', '{local.url}',{'chk'.concat(local.id)}.isChecked()))" widgetVar="{'chk'.concat(local.id)}" />-->
                         </p:column>
                         <p:column headerText="Id" style="text-align: center; width: 30px;" >
                             <h:outputText value="#{local.id}" />
@@ -48,7 +48,7 @@
                 <h:form class="arrumar">
                     <p:panelGrid>
                         <p:row>
-                            <p:column rendered="#{usuarioBean.isPermitidoComum()}">
+                            <p:column>
                                 <p:button value="Ativar Tudo" styleClass="barraBotoes" onclick="tabelaStatusConexao.ligarTudo(); return false;" />
                             </p:column>
                             <p:column rowspan="2">
@@ -96,7 +96,7 @@
                             </p:column>
                         </p:row>
                         <p:row>
-                            <p:column rendered="#{usuarioBean.isPermitidoComum()}">
+                            <p:column>
                                 <p:button value="Desativar Tudo" styleClass="barraBotoes" onclick="tabelaStatusConexao.desligarTudo(); return false;" />
                             </p:column>
                         </p:row>
@@ -125,7 +125,7 @@
                 };
                 conexao.onmessage = function(e) {
                     var obj = new Mensagem(e.data);
-                    console.log(obj);
+                    //console.log(obj);
                     if (obj.erro != null &amp;&amp; obj.erro != "")
                     {
                         groww.renderMessage(new MensagemGrowl(obj.erro));
@@ -157,18 +157,18 @@
             function mostraStatus(statusConexao) {
                 tabelaStatusConexao.atualizaStatus(statusConexao);
             }
-            function setaLocalMaquina(localMaquina) {
-                console.log(localMaquina);
-                enviarMensagem(localMaquina);
-                if (localMaquina.ativa) {
-                    mostraStatus(new StatusConexao(localMaquina.id, "...","Conectando..."));
+            function setaSistema(sistema) {
+                console.log(sistema);
+                enviarMensagem(sistema);
+                if (sistema.ativo) {
+                    mostraStatus(new StatusConexao(sistema.id, "...","Conectando..."));
                 }
                 else {
-                    mostraStatus(new StatusConexao(localMaquina.id, "",""));
+                    mostraStatus(new StatusConexao(sistema.id, "",""));
                 }
             }
-            function enviarMensagem(localMaquina) {
-                var msg = new Mensagem("conect", "LocalMaquina", JSON.stringify(localMaquina), "");
+            function enviarMensagem(sistema) {
+                var msg = new Mensagem("conect", "Sistema", JSON.stringify(sistema), "");
                 console.log(msg);
                 conexao.send(JSON.stringify(msg));
                 //document.getElementById(link.id).value = '';

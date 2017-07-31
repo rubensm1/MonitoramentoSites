@@ -3,7 +3,7 @@ package websocket.controle;
 import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import websocket.entidade.LocalMaquina;
+import websocket.entidade.Sistema;
 import websocket.entidade.mensagem.Mensagem;
 import websocket.entidade.mensagem.MensagemGrowl;
 
@@ -13,10 +13,10 @@ import websocket.entidade.mensagem.MensagemGrowl;
  */
 public class Comunicador extends Thread {
 
-    private LocalMaquina localMaquina;
+    private Sistema sistema;
 
-    public Comunicador(LocalMaquina localMaquina) {
-        this.localMaquina = localMaquina;
+    public Comunicador(Sistema sistema) {
+        this.sistema = sistema;
     }
 
     @Override
@@ -27,18 +27,18 @@ public class Comunicador extends Thread {
     public void executar() {
         Navegador navegador;
         try {
-            navegador = new Navegador(this.localMaquina.getUrl());
+            navegador = new Navegador(this.sistema.getUrl());
         } catch (MalformedURLException ex) {
             Logger.getLogger(Comunicador.class.getName()).log(Level.SEVERE, null, ex);
             PontoWebSocket.enviaObjeto(new Mensagem("ping", "", MensagemGrowl.mensagemErro(ex)));
             return;
         }
         try {
-            while(this.localMaquina.isAtiva()) {
-                synchronized(this.localMaquina){
-                    Mensagem mensagem = new Mensagem("ping", navegador.pingLink(localMaquina.getId()), "");
+            while(this.sistema.isAtivo()) {
+                synchronized(this.sistema){
+                    Mensagem mensagem = new Mensagem("ping", navegador.pingLink(sistema.getId()), "");
                     PontoWebSocket.enviaObjeto(mensagem);
-                    System.out.println(mensagem);
+                    //System.out.println(mensagem);
                 }
                 this.sleep(5000);
             }
@@ -48,11 +48,11 @@ public class Comunicador extends Thread {
         }
     }
 
-    public LocalMaquina getLocalMaquina() {
-        return localMaquina;
+    public Sistema getLocalMaquina() {
+        return sistema;
     }
 
-    public void setLocalMaquina(LocalMaquina localMaquina) {
-        this.localMaquina = localMaquina;
+    public void setLocalMaquina(Sistema sistema) {
+        this.sistema = sistema;
     }
 }

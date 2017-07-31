@@ -9,7 +9,7 @@ public enum ClassesRegistradas {
     String(new String().getClass().getSimpleName(), String.class),
     Integer(new Integer(0).getClass().getSimpleName(), Integer.class),
     ArrayInteger(new Integer[]{}.getClass().getSimpleName(), Integer[].class),
-    LocalMaquina(new LocalMaquina().getClass().getSimpleName(), LocalMaquina.class),
+    Sistema(new Sistema().getClass().getSimpleName(), Sistema.class),
     Maquina(new Maquina().getClass().getSimpleName(), Maquina.class),
     StatusConexao(new StatusConexao().getClass().getSimpleName(), StatusConexao.class);
     

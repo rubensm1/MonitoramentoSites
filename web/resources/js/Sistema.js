@@ -1,6 +1,6 @@
-var LocalMaquina;
+var Sistema;
 
-LocalMaquina = (function(){
+Sistema = (function(){
     
     /**
      * @param int id
@@ -8,13 +8,13 @@ LocalMaquina = (function(){
      * @param String link
      * @param boolean ativa
      */
-    function LocalMaquina(id, nome, url, ativa) {
+    function Sistema(id, nome, url, ativo) {
         this.id = id;
         this.nome = nome;
         this.url = url;
-        this.ativa = ativa;
+        this.ativo = ativo;
     }
     
-    return LocalMaquina;
+    return Sistema;
 })();
 

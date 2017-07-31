@@ -31,7 +31,7 @@ public abstract class AbstractBean {
             
         } catch (ExceptionPersonalizada ex) {
             novaMensagem(ex.geraFacesMessage());
-            Logger.getLogger(LocalBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SistemaBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         //novaMensagem("Teste", "Easasaas", FacesMessage.SEVERITY_WARN);
     }
@@ -46,7 +46,7 @@ public abstract class AbstractBean {
                 novaMensagem("Falha!", "Não há itens selecionados, selecione um item para alterar, ou então use 'Inserir'.", FacesMessage.SEVERITY_WARN);
         } catch (ExceptionPersonalizada ex) {
             novaMensagem(ex.geraFacesMessage());
-            Logger.getLogger(LocalBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SistemaBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -62,7 +62,7 @@ public abstract class AbstractBean {
             }
         } catch (ExceptionPersonalizada ex) {
             novaMensagem(ex.geraFacesMessage());
-            Logger.getLogger(LocalBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SistemaBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -76,7 +76,7 @@ public abstract class AbstractBean {
             return ConexaoEntityManager.listar(this.objetoPersistente.getClass());
         } catch (ExceptionPersonalizada e) {
             novaMensagem(e.geraFacesMessage());
-            Logger.getLogger(LocalBean.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(SistemaBean.class.getName()).log(Level.SEVERE, null, e);
         }
         return new ArrayList<>();
     }

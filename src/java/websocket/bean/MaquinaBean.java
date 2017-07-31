@@ -41,10 +41,10 @@ public class MaquinaBean extends AbstractBean implements Serializable {
 
         } catch (ExceptionPersonalizada ex) {
             novaMensagem(ex.geraFacesMessage());
-            Logger.getLogger(LocalBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SistemaBean.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
             novaMensagem(new ExceptionPersonalizada(ex).geraFacesMessage());
-            Logger.getLogger(LocalBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SistemaBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -62,10 +62,10 @@ public class MaquinaBean extends AbstractBean implements Serializable {
             }
         } catch (ExceptionPersonalizada ex) {
             novaMensagem(ex.geraFacesMessage());
-            Logger.getLogger(LocalBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SistemaBean.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
             novaMensagem(new ExceptionPersonalizada(ex).geraFacesMessage());
-            Logger.getLogger(LocalBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SistemaBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

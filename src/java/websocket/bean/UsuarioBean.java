@@ -69,7 +69,7 @@ public class UsuarioBean extends AbstractBean implements Serializable {
             return usuarios.isEmpty() ? new Usuario(0) : usuarios.get(0);
         } catch (ExceptionPersonalizada e) {
             novaMensagem(e.geraFacesMessage());
-            Logger.getLogger(LocalBean.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(SistemaBean.class.getName()).log(Level.SEVERE, null, e);
         }
         return new Usuario(0);
     }
